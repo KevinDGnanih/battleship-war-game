@@ -8,7 +8,7 @@ def get_user_name():
     """
     while True:
         
-        print("---Please enter a name with no more than 15 character---")
+        print("---Please enter a name with no more than 10 characters---")
         get_name = input("Please enter your name:\n")
         name_is = get_name
 
@@ -26,9 +26,9 @@ def validate_name(values):
     """
     
     try:
-        if len(values) > 15:
+        if len(values) > 10:
             raise ValueError(
-                f"No more than 15 character required, you provided {len(values)}"
+                f"No more than 10 characters required, you provided {len(values)}"
             )
     except ValueError as e:
         print(f"Invalid name: {e}, please try again.\n")
@@ -48,14 +48,12 @@ def validate_name(values):
     return True
 
 
-
 def main():
     """
     Run all program functions
     """
     user_name = get_user_name()
     
-
 
 print("----------------------------------\nWelcome to BATTLESHIP WAR GAME !!\nBoard size: 6. Number of ships: 5\nTop left corner is row: 0, col: 0\n----------------------------------\n")
 main()
