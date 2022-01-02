@@ -8,12 +8,12 @@ def get_user_name():
     """
     while True:
 
-        print("---Please enter a name with no more than 10 characters---")
+        print("Please enter a name with no more than 10 characters")
         get_name = input("Please enter your name:\n")
         name_is = get_name
 
         if validate_name(name_is):
-            print("Name is valid!")
+            print("----------------------------------\n")
             break
 
     return name_is
@@ -34,26 +34,43 @@ def validate_name(values):
         print(f"Invalid name: {e}, please try again.\n")
         return False
 
-    """
-    try:
-        if str.isalpha(user_name):
-            raise ValueError(
-                f"Only letters required, you provided {user_name}"
-            )
-    except ValueError as e:
-        print(f"Invalid entry: {e}, please try again\n")
-        return False
-    """
-
     return True
 
 
-def main():
+class Board:
     """
-    Run all program functions
+    Main board class. Sets board size, the number of ships,
+    the player's name and the board type (player board or computer).
+    Has also methods for adding ships and guesses and printing the board
     """
+
+    def __init__(self, size, num_ships, name, type):
+        self.size = size
+        self.num_ships = [["." for x in range(size)] for y in range(size)]
+        self.name = name
+        self.type = type
+        self.guesses = []
+        self.ships = []
+
+
+def new_game():
+    """
+    Run all games functions and starts a new game.
+    Sets the board size and number of ships, resets
+    the scores and initialises the boards.
+    """
+
+    #size = 6
+    #num_ships = 5
+    #scores["player"] = 0
+    #scores["ai"] = 0
+    print("-" * 35)
+    print("Welcome to BATTLESHIP WAR GAME !!")
+    print("Board size: 6. Number of ships: 5")
+    print("Top left corner is row: 0, col: 0")
+    print("-" * 35)
+
     user_name = get_user_name()
 
 
-print("----------------------------------\nWelcome to BATTLESHIP WAR GAME !!\nBoard size: 6. Number of ships: 5\nTop left corner is row: 0, col: 0\n----------------------------------\n")
-main()
+new_game()
