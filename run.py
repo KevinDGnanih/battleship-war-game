@@ -6,10 +6,47 @@ def get_user_name():
     """
     Get name input from user
     """
+    while True:
+        
+        print("---Please enter a name with no more than 15 character---")
+        get_name = input("Please enter your name:\n")
+        name_is = get_name
 
-    user_name = input("Please enter your name:\n")
+        if validate_name(name_is):
+            print("Name is valid!")
+            break
 
-    return user_name
+    return name_is
+
+
+def validate_name(values):
+    """
+    Raises ValueError if the string has other characters than letters
+    and has no more than 15 letters
+    """
+    
+    try:
+        if len(values) > 15:
+            raise ValueError(
+                f"No more than 15 character required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid name: {e}, please try again.\n")
+        return False
+
+    """
+    try:
+        if str.isalpha(user_name):
+            raise ValueError(
+                f"Only letters required, you provided {user_name}"
+            )
+    except ValueError as e:
+        print(f"Invalid entry: {e}, please try again\n")
+        return False
+    """
+
+    return True
+
 
 
 def main():
