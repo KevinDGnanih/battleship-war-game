@@ -1,6 +1,45 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+from random import randint
+
+
+scores = {"player": 0, "ai": 0}
+
+
+class Board:
+    """
+    Main board class. Sets board size, the number of ships,
+    the player's name and the board type (player board or computer).
+    Has also methods for adding ships and guesses and printing the board
+    """
+
+    def __init__(self, size, num_ships, name, type):
+        self.size = size
+        self.num_ships = [["." for x in range(size)] for y in range(size)]
+        self.name = name
+        self.type = type
+        self.guesses = []
+        self.ships = []
+
+    def print(self):
+        for row in self.board:
+            print("".join(row))
+
+    def guess(self, x, y):
+        self.guesses.append((x, y))
+        self.board[x][y] = "X"
+
+        if (x, y) in self.ships:
+            self.board[x][y] = "*"
+            return "Hit"
+        else:
+            return "Miss"
+
+    def add_ship(self, x, y, type="ai"):
+        if len(self.ships) >= self.num_ships:
+            print("Error: you cannot add any more ships!")
+        else:
+            self.ships.append((x, y))
+            if self.type == "player":
+                self.board[x][y] = "@"
 
 def get_user_name():
     """
@@ -37,20 +76,21 @@ def validate_name(values):
     return True
 
 
-class Board:
+def random_point(size):
     """
-    Main board class. Sets board size, the number of ships,
-    the player's name and the board type (player board or computer).
-    Has also methods for adding ships and guesses and printing the board
+    Helper function to return a random integer between 0 and size
     """
+    return randint(0, size - 1)
 
-    def __init__(self, size, num_ships, name, type):
-        self.size = size
-        self.num_ships = [["." for x in range(size)] for y in range(size)]
-        self.name = name
-        self.type = type
-        self.guesses = []
-        self.ships = []
+#def valid_coordinates(x, y, board):
+
+
+#def make_guess(board):
+
+
+def play_game(ai_board, player_board):
+    print("Coucou")
+
 
 
 def new_game():
@@ -60,17 +100,22 @@ def new_game():
     the scores and initialises the boards.
     """
 
-    #size = 6
-    #num_ships = 5
-    #scores["player"] = 0
-    #scores["ai"] = 0
+    size = 6
+    num_ships = 5
+    scores["player"] = 0
+    scores["ai"] = 0
     print("-" * 35)
     print("Welcome to BATTLESHIP WAR GAME !!")
     print("Board size: 6. Number of ships: 5")
     print("Top left corner is row: 0, col: 0")
     print("-" * 35)
 
+    #player_board = Board(size, num_ships, user_name, type="player")
+    #ai_board = Board(size, num_ships, "ai", type="ai")
+
     user_name = get_user_name()
+    play_game(player_board, ai_board)
 
 
 new_game()
+
