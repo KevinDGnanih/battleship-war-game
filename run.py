@@ -1,14 +1,6 @@
-class GameBoard:
-    """
-    Main board class. Sets board size, the number of ships,
-    the player's name and the board type (player board or computer).
-    Has also methods for adding ships and guesses and printing the board
-    """
-    def __init__(self, size, num_ships, name, type):
-        self.size = size
-        self.num_ships = num_ships
-        self.name = name
-        self.type = type
+"""
+BATTLESHIP WAR GAME
+"""
 
 
 def get_player_name():
@@ -17,7 +9,7 @@ def get_player_name():
     """
     while True:
 
-        get_name = input("Please enter a name with no more than 10 characters:\n")
+        get_name = input("Please enter a name:\n")
         name_is = get_name
 
         if validate_name(name_is):
@@ -30,7 +22,7 @@ def get_player_name():
 def validate_name(values):
     """
     Raises ValueError if the string has other characters than letters
-    and has no more than 15 letters
+    and has no more than 10 letters
     """
 
     try:
@@ -38,11 +30,26 @@ def validate_name(values):
             raise ValueError(
                 f"No more than 10 characters required, you entered {len(values)}"
                 )
-    except ValueError as e:
-        print(f"Invalid name: {e}, please try again.\n")
+        if len(values) == 0:
+            raise ValueError(
+                f"You haven't enter any character {values}"
+            )
+    except ValueError as error:
+        print(f"Invalid name: {error}, please try again.\n")
         return False
 
     return True
+
+
+def play_game():
+    """
+    Starting the game function
+    """
+    player_name = get_player_name()
+    print(f"{player_name}'s Board:")
+    print("...Board here...")
+    print("AI Board:")
+    print("...Board here...")
 
 
 def new_game():
@@ -51,18 +58,12 @@ def new_game():
     Sets the board size and number of ships, resets
     the scores and initialises the boards.
     """
-    size = 6
-    num_ships = 5
     print("+", "-" * 35, "+")
     print("   Welcome to BATTLESHIP WAR GAME !!")
-    print(f"   Board size: {size}. Number of ships: {num_ships}")
+    print("   Board size: 6. Number of ships: 5")
     print("   Top left corner is row: 0, col: 0")
     print("+", "-" * 35, "+")
-    get_player_name()
-
-    ai_board = GameBoard(size, num_ships, "AI", type="AI")
-
-
+    play_game()
 
 
 new_game()
