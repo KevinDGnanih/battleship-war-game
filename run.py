@@ -12,7 +12,7 @@ class GameBoard:
 
     def print_board(self):
         """
-        Print the board for ai and player
+        Print the board for AI and player
         """
         board = []
 
@@ -49,7 +49,7 @@ def validate_name(values):
     try:
         if len(values) > 10:
             raise ValueError(
-                f"No more than 10 characters required, you entered {len(values)}"
+                f"10 characters maximum required, you entered {len(values)}"
                 )
         if len(values) == 0:
             raise ValueError(
