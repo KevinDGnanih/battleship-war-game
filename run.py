@@ -3,6 +3,27 @@ BATTLESHIP WAR GAME
 """
 
 
+class GameBoard:
+    """
+    Figuring out everything for this class
+    """
+    def __init__(self, board_type):
+        self.board_type = board_type
+
+    def print_board(self):
+        """
+        Print the board for ai and player
+        """
+        board = []
+
+        for row in range(0, 6):
+            board.append(["~"] * 6)
+
+        for row in board:
+            print(" ".join(row))
+        return board
+
+
 def get_player_name():
     """
     Get name input from player
@@ -13,7 +34,7 @@ def get_player_name():
         name_is = get_name
 
         if validate_name(name_is):
-            print("-" * 35)
+            print("+", "-" * 35, "+")
             break
 
     return name_is
@@ -45,11 +66,14 @@ def play_game():
     """
     Starting the game function
     """
+    player_board = GameBoard("player")
+    ai_board = GameBoard("AI")
+
     player_name = get_player_name()
     print(f"{player_name}'s Board:")
-    print("...Board here...")
+    print(player_board.print_board())
     print("AI Board:")
-    print("...Board here...")
+    print(ai_board.print_board())
 
 
 def new_game():
