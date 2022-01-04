@@ -1,7 +1,7 @@
 """
 BATTLESHIP WAR GAME
 """
-from random import randint
+#from random import randint
 
 
 class GameBoard:
@@ -22,14 +22,6 @@ class GameBoard:
 
         for row in board:
             print(" ".join(row))
-
-
-class Ships:
-    """
-    Creates ships on the borad
-    """
-    def __init__(self, board):
-        self.board = board
 
 
 def get_player_name():
@@ -70,6 +62,23 @@ def validate_name(values):
     return True
 
 
+def make_shoot():
+    """
+    Asks the player to guess a row and a column then
+    validate if the inputs are integers before to return them
+    """
+    while True:
+        try:
+            print("+", "-" * 35, "+")
+            row = input("Guess a row:\n")
+            row = int(row)
+            column = input("Guess a column:\n")
+            column = int(column)
+            break
+        except ValueError:
+            print("Row and column guesses must be numbers, please try again")
+
+
 def play_game():
     """
     Starting the game function
@@ -82,6 +91,7 @@ def play_game():
     player_board.print_board()
     print("AI Board:")
     ai_board.print_board()
+    make_shoot()
 
 
 def new_game():
