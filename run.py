@@ -79,9 +79,9 @@ def play_game():
     player_name = get_player_name()
 
     print(f"{player_name}'s Board:")
-    print(player_board.print_board())
+    player_board.print_board()
     print("AI Board:")
-    print(ai_board.print_board())
+    ai_board.print_board()
 
 
 def new_game():
