@@ -1,6 +1,7 @@
 """
 BATTLESHIP WAR GAME
 """
+from random import randint
 
 
 class GameBoard:
@@ -21,7 +22,14 @@ class GameBoard:
 
         for row in board:
             print(" ".join(row))
-        return board
+
+
+class Ships:
+    """
+    Creates ships on the borad
+    """
+    def __init__(self, board):
+        self.board = board
 
 
 def get_player_name():
@@ -68,8 +76,8 @@ def play_game():
     """
     player_board = GameBoard("player")
     ai_board = GameBoard("AI")
-
     player_name = get_player_name()
+
     print(f"{player_name}'s Board:")
     print(player_board.print_board())
     print("AI Board:")
