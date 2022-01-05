@@ -19,10 +19,10 @@ class GameBoard:
     """
     def __init__(self, board_type, size, num_ships, name):
         self.board_type = board_type
-        self.board = [["~" for row in range(size)] for column in range(size)]
         self.size = size
         self.num_ships = num_ships
         self.name = name
+        self.board = [["~" for row in range(size)] for column in range(size)]
         self.ships = []
         self.guesses = []
         self.placing_ships()
@@ -43,7 +43,7 @@ class GameBoard:
             while (row, column) in self.ships:
                 row, column = random_coordinates(self.size)
             self.ships.append((row, column))
-            if self.player:
+            if self.board_type:
                 self.board[row][column] = "@"
 
 
@@ -121,14 +121,14 @@ def play_game():
     Starting the game function
     """
     player_name = get_player_name()
-    player_board = GameBoard(board_type="player", size, num_ships, player_name)
-    ai_board = GameBoard(board_type="ai", size, num_ships, "Computer")
+    player_board = GameBoard(board_type="player", size=6, num_ships=4, name=player_name)
+    ai_board = GameBoard(board_type="ai", size=6, num_ships=4, name="Computer")
     
 
     print(f"{player_name}'s Board:")
     player_board.print_board()
     print("AI Board:")
-    ai_board.print_board()
+    #ai_board.print_board()
     #make_shoot()
 
 
