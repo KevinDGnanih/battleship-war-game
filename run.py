@@ -17,11 +17,12 @@ class GameBoard:
     """
     Figuring out everything for this class
     """
-    def __init__(self, who, size, num_ships, name):
+    def __init__(self, who, size, num_ships, name, player=False):
         self.who = who
         self.size = size
         self.num_ships = num_ships
         self.name = name
+        self.player = player
         self.board = [["~" for row in range(size)] for column in range(size)]
         self.ships = []
         self.guesses = []
@@ -43,7 +44,7 @@ class GameBoard:
             while (row, column) in self.ships:
                 row, column = random_coordinates(self.size)
             self.ships.append((row, column))
-            if self.who:
+            if self.player:
                 self.board[row][column] = "@"
 
 
@@ -121,7 +122,7 @@ def play_game():
     Starting the game function
     """
     player_name = get_player_name()
-    player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name)
+    player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name, player=True)
     ai_board = GameBoard(who="ai", size=6, num_ships=5, name="Computer")
 
     print(f"{player_name}'s Board:")
