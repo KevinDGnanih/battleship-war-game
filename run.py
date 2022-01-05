@@ -47,6 +47,35 @@ class GameBoard:
             if self.player:
                 self.board[row][column] = "@"
 
+    def make_shoot(self):
+        """
+        Asks the player to guess a row and a column then
+        validate if the inputs are integers before to return them
+        """
+        while True:
+            try:
+                print("+", "-" * 35, "+")
+                row = input("Guess a row:\n")
+                row = int(row)
+                column = input("Guess a column:\n")
+                column = int(column)
+                break
+            except ValueError:
+                print("Row and column guesses must be numbers, please try again")
+
+    def guess(self, row, column):
+        """
+        Make a guess and mark it on the board
+        """
+        self.guesses.append((row, column))
+        self.board[row][column] = "X"
+
+        if (row, column) in self.ships:
+            self.board[row][column] = "*"
+            return True
+        else:
+            return 
+
 
 def get_player_name():
     """
@@ -86,23 +115,6 @@ def validate_name(values):
     return True
 
 
-def make_shoot():
-    """
-    Asks the player to guess a row and a column then
-    validate if the inputs are integers before to return them
-    """
-    while True:
-        try:
-            print("+", "-" * 35, "+")
-            row = input("Guess a row:\n")
-            row = int(row)
-            column = input("Guess a column:\n")
-            column = int(column)
-            break
-        except ValueError:
-            print("Row and column guesses must be numbers, please try again")
-
-
 def valid_guess(row, column):
     """
     Returns True if the coordinates are within the board grid
@@ -119,7 +131,7 @@ def valid_guess(row, column):
 
 def play_game():
     """
-    Starting the game function
+    Starting the game functions
     """
     player_name = get_player_name()
     player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name, player=True)
@@ -129,6 +141,11 @@ def play_game():
     player_board.print_board()
     print("AI Board:")
     ai_board.print_board()
+    
+    row, column = make_shoot()
+    while not valid_guess(row, column):
+        row, column =  make_shoot()
+    player_shoot = ai_board.guess(row, column)
 
 
 def new_game():
