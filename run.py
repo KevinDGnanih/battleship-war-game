@@ -121,8 +121,8 @@ def play_game():
     Starting the game function
     """
     player_name = get_player_name()
-    player_board = GameBoard(board_type="player", size=6, num_ships=4, name=player_name)
-    ai_board = GameBoard(board_type="ai", size=6, num_ships=4, name="Computer")
+    player_board = GameBoard(board_type="player", size=6, num_ships=5, name=player_name)
+    ai_board = GameBoard(board_type="ai", size=6, num_ships=5, name="Computer")
     
 
     print(f"{player_name}'s Board:")
