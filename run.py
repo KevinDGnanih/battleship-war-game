@@ -17,26 +17,21 @@ class GameBoard:
     """
     Figuring out everything for this class
     """
-    def __init__(self, board_type, size, num_ships, name, player=False):
+    def __init__(self, board_type, size, num_ships, name):
         self.board_type = board_type
+        self.board = [["~" for row in range(size)] for column in range(size)]
         self.size = size
         self.num_ships = num_ships
         self.name = name
-        self.player = player
         self.ships = []
         self.guesses = []
-        self.placing_ships() 
+        self.placing_ships()
 
     def print_board(self):
         """
         Print the board for AI and player
         """
-        board = []
-
-        for row in range(0, 6):
-            board.append(["~"] * 6)
-
-        for row in board:
+        for row in self.board:
             print(" ".join(row))
 
     def placing_ships(self):
@@ -66,6 +61,7 @@ def get_player_name():
             break
 
     return name_is
+
 
 def validate_name(values):
     """
@@ -124,16 +120,16 @@ def play_game():
     """
     Starting the game function
     """
-    player_board = GameBoard("player")
-    ai_board = GameBoard("AI")
     player_name = get_player_name()
+    player_board = GameBoard(board_type="player", size, num_ships, player_name)
+    ai_board = GameBoard(board_type="ai", size, num_ships, "Computer")
+    
 
     print(f"{player_name}'s Board:")
     player_board.print_board()
     print("AI Board:")
     ai_board.print_board()
-    make_shoot()
-    
+    #make_shoot()
 
 
 def new_game():
