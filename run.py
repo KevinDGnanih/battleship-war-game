@@ -74,7 +74,7 @@ class GameBoard:
             self.board[row][column] = "*"
             return True
         else:
-            return 
+            return
 
 
 def get_player_name():
@@ -141,11 +141,6 @@ def play_game():
     player_board.print_board()
     print("AI Board:")
     ai_board.print_board()
-    
-    row, column = make_shoot()
-    while not valid_guess(row, column):
-        row, column =  make_shoot()
-    player_shoot = ai_board.guess(row, column)
 
 
 def new_game():
