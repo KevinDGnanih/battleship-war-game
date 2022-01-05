@@ -1,15 +1,31 @@
 """
 BATTLESHIP WAR GAME
 """
-#from random import randint
+from random import randint
+
+
+def random_coordinates(size):
+    """
+    Returns a random coordinate
+    """
+    row = randint(0, size - 1)
+    column = randint(0, size - 1)
+    return (row, column)
 
 
 class GameBoard:
     """
     Figuring out everything for this class
     """
-    def __init__(self, board_type):
+    def __init__(self, board_type, size, num_ships, name, player=False):
         self.board_type = board_type
+        self.size = size
+        self.num_ships = num_ships
+        self.name = name
+        self.player = player
+        self.ships = []
+        self.guesses = []
+        self.placing_ships() 
 
     def print_board(self):
         """
@@ -22,6 +38,18 @@ class GameBoard:
 
         for row in board:
             print(" ".join(row))
+
+    def placing_ships(self):
+        """
+        Placing ships on the boards
+        """
+        for _ in range(self.num_ships):
+            row, column = random_coordinates(self.size)
+            while (row, column) in self.ships:
+                row, column = random_coordinates(self.size)
+            self.ships.append((row, column))
+            if self.player:
+                self.board[row][column] = "@"
 
 
 def get_player_name():
@@ -38,7 +66,6 @@ def get_player_name():
             break
 
     return name_is
-
 
 def validate_name(values):
     """
@@ -79,6 +106,20 @@ def make_shoot():
             print("Row and column guesses must be numbers, please try again")
 
 
+def valid_guess(row, column):
+    """
+    Returns True if the coordinates are within the board grid
+    and if they haven't been guesses before
+    """
+    if (0 <= row) < 6 and (0 <= column) < 6:
+        return True
+    if not (0 <= row) < 6 and (0 <= column) < 6:
+        print("Row and column must be between 0 and 6")
+        return False
+
+    return
+
+
 def play_game():
     """
     Starting the game function
@@ -92,6 +133,7 @@ def play_game():
     print("AI Board:")
     ai_board.print_board()
     make_shoot()
+    
 
 
 def new_game():
