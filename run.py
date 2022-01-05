@@ -17,8 +17,8 @@ class GameBoard:
     """
     Figuring out everything for this class
     """
-    def __init__(self, board_type, size, num_ships, name):
-        self.board_type = board_type
+    def __init__(self, who, size, num_ships, name):
+        self.who = who
         self.size = size
         self.num_ships = num_ships
         self.name = name
@@ -43,7 +43,7 @@ class GameBoard:
             while (row, column) in self.ships:
                 row, column = random_coordinates(self.size)
             self.ships.append((row, column))
-            if self.board_type:
+            if self.who:
                 self.board[row][column] = "@"
 
 
@@ -121,15 +121,13 @@ def play_game():
     Starting the game function
     """
     player_name = get_player_name()
-    player_board = GameBoard(board_type="player", size=6, num_ships=5, name=player_name)
-    ai_board = GameBoard(board_type="ai", size=6, num_ships=5, name="Computer")
-    
+    player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name)
+    ai_board = GameBoard(who="ai", size=6, num_ships=5, name="Computer")
 
     print(f"{player_name}'s Board:")
     player_board.print_board()
     print("AI Board:")
-    #ai_board.print_board()
-    #make_shoot()
+    ai_board.print_board()
 
 
 def new_game():
