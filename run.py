@@ -47,7 +47,7 @@ class GameBoard:
             if self.player:
                 self.board[row][column] = "@"
 
-    def make_shoot(self):
+    def ask_guess(self):
         """
         Asks the player to guess a row and a column then
         validate if the inputs are integers before to return them
@@ -59,9 +59,12 @@ class GameBoard:
                 row = int(row)
                 column = input("Guess a column:\n")
                 column = int(column)
-                break
+                if valid_guess(row, column):
+                    return self.guess(row, column)
             except ValueError:
                 print("Row and column guesses must be numbers, please try again")
+
+        return (row, column)
 
     def guess(self, row, column):
         """
@@ -70,11 +73,12 @@ class GameBoard:
         self.guesses.append((row, column))
         self.board[row][column] = "X"
 
-        if (row, column) in self.ships:
-            self.board[row][column] = "*"
+        if valid_guess(row, column):
+            if (row, column) in self.ships:
+                self.board[row][column] = "*"
             return True
         else:
-            return
+            return False
 
 
 def get_player_name():
@@ -120,13 +124,17 @@ def valid_guess(row, column):
     Returns True if the coordinates are within the board grid
     and if they haven't been guesses before
     """
-    if (0 <= row) < 6 and (0 <= column) < 6:
-        return True
-    if not (0 <= row) < 6 and (0 <= column) < 6:
-        print("Row and column must be between 0 and 6")
+    try:
+        if not (0 <= row) < 6 and (0 <= column) < 6:
+            raise ValueError(
+                print("Row and column must be between 0 and 6")
+            )
+
+    except ValueError as error:
+        print(f"Invalide coordinates: {error}, please try again.\n")
         return False
 
-    return
+    return True
 
 
 def play_game():
@@ -141,6 +149,14 @@ def play_game():
     player_board.print_board()
     print("AI Board:")
     ai_board.print_board()
+
+    game_on = True
+
+    while game_on:
+        guess = player_board.ask_guess()
+        if guess:
+            game_on = False
+
 
 
 def new_game():
