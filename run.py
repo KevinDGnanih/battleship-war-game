@@ -53,16 +53,17 @@ class GameBoard:
         validate if the inputs are integers before to return them
         """
         while True:
-                print("+", "-" * 35, "+")
-                row = input("Guess a row:\n")
-                row = int(row)
-                column = input("Guess a column:\n")
-                column = int(column)
-                if valid_guess(row, column):
-                    print("Loading...")
-                    break
+    
+            print("+", "-" * 35, "+")
+            row = input("Guess a row:\n")
+            row = int(row)
+            column = input("Guess a column:\n")
+            column = int(column)
+            if valid_guess(row, column):
+                print("Loading...")
+                break
         
-        #return (row, column)
+        return (row, column)
 
     def guess(self, row, column):
         """
