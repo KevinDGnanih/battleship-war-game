@@ -158,7 +158,6 @@ def play_game():
             game_on = False
 
 
-
 def new_game():
     """
     Run all games functions and starts a new game.

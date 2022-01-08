@@ -64,12 +64,12 @@ class GameBoard:
                     break
             except ValueError:
                 print("Row and column must be numbers")
-        
+
         return (row, column)
 
-    def guess(self, row, column):
+    def mark_guess(self, row, column):
         """
-        Make a guess and mark it on the board
+        Mark guesses on the board
         """
         self.guesses.append((row, column))
         self.board[row][column] = "X"
@@ -145,18 +145,19 @@ def play_game():
     player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name, player=True)
     ai_board = GameBoard(who="ai", size=6, num_ships=5, name="Computer")
 
-    print(f"{player_name}'s Board:")
-    player_board.print_board()
-    print("AI Board:")
-    ai_board.print_board()
-
     game_on = True
 
     while game_on:
+        print(f"{player_name}'s Board:")
+        player_board.print_board()
+        print("AI Board:")
+        ai_board.print_board()
+
+#       Player guesses
         guess = player_board.ask_guess()
+
         if guess:
             game_on = False
-
 
 
 def new_game():
