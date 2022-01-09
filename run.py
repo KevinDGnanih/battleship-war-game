@@ -60,12 +60,9 @@ class GameBoard:
                 column = input("Guess a column:\n")
                 column = int(column)
                 if valid_guess(row, column):
-                    print("Loading...")
-                    break
+                    return (row, column)
             except ValueError:
                 print("Row and column must be numbers")
-
-        return (row, column)
 
     def mark_guess(self, row, column):
         """
@@ -137,7 +134,7 @@ def valid_guess(row, column):
     except ValueError as error:
         print(f"Invalide coordinates: {error}, please try again.\n")
         return False
-    
+
     return True
 
 
@@ -158,10 +155,10 @@ def play_game():
         ai_board.print_board()
 
 #       Player guesses
-        guess = player_board.ask_guess()
-
-        if guess:
-            game_on = False
+        row, column = player_board.ask_guess()
+        while not valid_guess(row, column):
+            row, column = player_board.ask_guess()
+        player_shoot = ai_board.mark_guess(row, column)
 
 
 def new_game():
