@@ -126,14 +126,18 @@ def valid_guess(row, column):
     and if they haven't been guesses before
     """
     try:
-        if not 0 <= row < 6 and 0 <= column < 6:
+        if not 0 <= row < 6:
+            raise ValueError(
+                print(f"Row and column must be between 0 and 6, you entered {row}, {column}")
+            )
+        if not 0 <= column < 6:
             raise ValueError(
                 print(f"Row and column must be between 0 and 6, you entered {row}, {column}")
             )
     except ValueError as error:
         print(f"Invalide coordinates: {error}, please try again.\n")
         return False
-
+    
     return True
 
 
