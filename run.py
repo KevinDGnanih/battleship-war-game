@@ -77,14 +77,14 @@ class GameBoard:
             return True
         else:
             return False
-        
+
     def already_guessed(self, row, column):
         """
         Returns True if the coordinates have already been guessed before
         """
         if (row, column) in self.guesses:
             return True
-        
+
         return False
 
     def round_info(self):
@@ -177,17 +177,20 @@ def play_game():
             row, column = player_board.ask_guess()
         player_shoot = ai_board.mark_guess(row, column)
 
-        
-#       AI guesses
 
+#       AI guesses
+        row, column = random_coordinates(size=6)
+        while player_board.already_guessed(row, column):
+            row, column = random_coordinates(size=6)
+        computer_hit = player_board.mark_guess(row, column)
 
 #       Round's info
-        print("Alors...")
+        print("+", "-" * 35, "+")
         choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
-        
+
         if choice == "y":
             break
-        
+
 
 def new_game():
     """
