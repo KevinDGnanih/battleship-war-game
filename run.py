@@ -91,7 +91,7 @@ class GameBoard:
         """
         Gets the last shoot
         """
-        last_shoot = self.guesses[-1]
+        last_shoot = self.guesses
         print("+", "-" * 35, "+")
         print(f"You guessed {last_shoot}")
 
@@ -177,12 +177,17 @@ def play_game():
             row, column = player_board.ask_guess()
         player_shoot = ai_board.mark_guess(row, column)
 
+        
 #       AI guesses
 
 
 #       Round's info
-        player_board.round_info()
-
+        print("Alors...")
+        choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
+        
+        if choice == "y":
+            break
+        
 
 def new_game():
     """
