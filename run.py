@@ -87,13 +87,11 @@ class GameBoard:
 
         return False
 
-    def round_info(self):
+    def last_shoot(self):
         """
         Gets the last shoot
         """
-        last_shoot = self.guesses
-        print("+", "-" * 35, "+")
-        print(f"You guessed {last_shoot}")
+        return self.guesses[-1]
 
 
 def get_player_name():
@@ -182,12 +180,14 @@ def play_game():
         row, column = random_coordinates(size=6)
         while player_board.already_guessed(row, column):
             row, column = random_coordinates(size=6)
-        computer_hit = player_board.mark_guess(row, column)
+        ai_shoot = player_board.mark_guess(row, column)
 
 #       Round's info
         print("+", "-" * 35, "+")
-        choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
+        print(f"You guessed: {ai_board.last_shoot()}")
+        print(f"AI guessed: {player_board.last_shoot()}")
 
+        choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
         if choice == "y":
             break
 
