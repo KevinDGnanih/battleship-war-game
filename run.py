@@ -84,7 +84,16 @@ class GameBoard:
         """
         if (row, column) in self.guesses:
             return True
+        
         return False
+
+    def round_info(self):
+        """
+        Gets the last shoot
+        """
+        last_shoot = self.guesses[-1]
+        print("+", "-" * 35, "+")
+        print(f"You guessed {last_shoot}")
 
 
 def get_player_name():
@@ -97,7 +106,6 @@ def get_player_name():
         name_is = get_name
 
         if validate_name(name_is):
-            print("+", "-" * 35, "+")
             break
 
     return name_is
@@ -157,6 +165,7 @@ def play_game():
     game_on = True
 
     while game_on:
+        print("+", "-" * 35, "+")
         print(f"{player_name}'s Board:")
         player_board.print_board()
         print("AI Board:")
@@ -168,8 +177,11 @@ def play_game():
             row, column = player_board.ask_guess()
         player_shoot = ai_board.mark_guess(row, column)
 
-#        AI guesses
-        
+#       AI guesses
+
+
+#       Round's info
+        player_board.round_info()
 
 
 def new_game():
