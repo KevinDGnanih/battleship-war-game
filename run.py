@@ -173,19 +173,25 @@ def play_game():
         row, column = player_board.ask_guess()
         while not valid_guess(row, column):
             row, column = player_board.ask_guess()
-        player_shoot = ai_board.mark_guess(row, column)
+        player_hit = ai_board.mark_guess(row, column)
 
 
 #       AI guesses
         row, column = random_coordinates(size=6)
         while player_board.already_guessed(row, column):
             row, column = random_coordinates(size=6)
-        ai_shoot = player_board.mark_guess(row, column)
+        ai_hit = player_board.mark_guess(row, column)
 
 #       Round's info
         print("+", "-" * 35, "+")
         print(f"You guessed: {ai_board.last_shoot()}")
+        if player_hit == "*":
+            print("That was a hit!!!")
+        else:
+            print("Oh no, you miss")
         print(f"AI guessed: {player_board.last_shoot()}")
+
+
 
         choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
         if choice == "y":
