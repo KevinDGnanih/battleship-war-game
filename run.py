@@ -189,9 +189,9 @@ def play_game():
 #       Round's info
         print("+", "-" * 35, "+")
         print(f"You guessed: {ai_board.last_shoot()}")
-        print(player_hit)
+        print(player_hit) #Display if it's a hit or miss
         print(f"AI guessed: {player_board.last_shoot()}")
-        print(ai_hit)
+        print(ai_hit) # Display if it's a win or miss
 
         choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
         if choice == "y":
