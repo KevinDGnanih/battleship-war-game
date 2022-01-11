@@ -1,6 +1,7 @@
 """
 BATTLESHIP WAR GAME
 """
+
 from random import randint
 
 
@@ -74,6 +75,9 @@ class GameBoard:
         if valid_guess(row, column):
             if (row, column) in self.ships:
                 self.board[row][column] = "*"
+                return "That was a HIT!!!"
+            else:
+                return "Oh no, you miss"
             return True
         else:
             return False
@@ -185,13 +189,9 @@ def play_game():
 #       Round's info
         print("+", "-" * 35, "+")
         print(f"You guessed: {ai_board.last_shoot()}")
-        if player_hit == "*":
-            print("That was a hit!!!")
-        else:
-            print("Oh no, you miss")
+        print(player_hit)
         print(f"AI guessed: {player_board.last_shoot()}")
-
-
+        print(ai_hit)
 
         choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
         if choice == "y":
