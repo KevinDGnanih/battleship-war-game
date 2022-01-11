@@ -156,10 +156,20 @@ def valid_guess(row, column):
     return True
 
 
+def game_over():
+    """
+    Checks if either player has sunk all the other player's ships
+    """
+
+
+scores = {"player": 0, "ai": 0}
+
 def play_game():
     """
     Starting the game functions
     """
+    scores["player"] = 0
+    scores["ai"] = 0
     player_name = get_player_name()
     player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name, player=True)
     ai_board = GameBoard(who="ai", size=6, num_ships=5, name="Computer")
@@ -189,10 +199,14 @@ def play_game():
 #       Round's info
         print("+", "-" * 35, "+")
         print(f"You guessed: {ai_board.last_shoot()}")
-        print(player_hit) #Display if it's a hit or miss
+        print(player_hit)  # Display if it's a hit or miss
         print(f"AI guessed: {player_board.last_shoot()}")
-        print(ai_hit) # Display if it's a win or miss
+        print(ai_hit)  # Display if it's a win or miss
 
+#       Scores section
+        print("+", "-" * 35, "+")
+        print(f"After this round, the scroes are:\n {player_name}: {scores['player']}. AI: {scores['ai']}")
+        print("+", "-" * 35, "+")
         choice = input("Type \"y\" to quit or anything else " + "to continue.\n")
         if choice == "y":
             break
