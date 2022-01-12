@@ -60,7 +60,7 @@ class GameBoard:
                 row = int(row)
                 column = input("Guess a column:\n")
                 column = int(column)
-                if valid_guess(row, column):
+                if self.valid_guess(row, column):
                     return (row, column)
             except ValueError:
                 print("Row and column must be numbers")
@@ -72,7 +72,7 @@ class GameBoard:
         self.guesses.append((row, column))
         self.board[row][column] = "X"
 
-        if valid_guess(row, column):
+        if self.valid_guess(row, column):
             if (row, column) in self.ships:
                 self.board[row][column] = "*"
                 return "That was a HIT!!!"
@@ -88,7 +88,6 @@ class GameBoard:
         """
 
         if (row, column) in self.guesses:
-            print("Ouppss... You cannot enter the same coordinates more than once.")
             return True
 
         return False
@@ -98,6 +97,28 @@ class GameBoard:
         Gets the last shoot
         """
         return self.guesses[-1]
+
+    def valid_guess(self, row, column):
+        """
+        Returns True if the coordinates are within the board grid
+        and if they haven't been guesses before
+        """
+        try:
+            if not 0 <= row < 6:
+                raise ValueError(
+                    print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
+                )
+            if not 0 <= column < 6:
+                raise ValueError(
+                    print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
+                )
+            if self.who.already_guessed(row, column):
+                print("Ouppss... You cannot enter the same coordinates more than once.")
+        except ValueError as error:
+            print(f"Invalide coordinates: {error}, please try again.\n")
+            return False
+
+        return True
 
 
 def get_player_name():
@@ -137,27 +158,6 @@ def validate_name(values):
     return True
 
 
-def valid_guess(row, column):
-    """
-    Returns True if the coordinates are within the board grid
-    and if they haven't been guesses before
-    """
-    try:
-        if not 0 <= row < 6:
-            raise ValueError(
-                print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
-            )
-        if not 0 <= column < 6:
-            raise ValueError(
-                print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
-            )
-    except ValueError as error:
-        print(f"Invalide coordinates: {error}, please try again.\n")
-        return False
-
-    return True
-
-
 scores = {"player": 0, "ai": 0}
 
 
@@ -182,7 +182,7 @@ def play_game():
 
 #       Player guesses
         row, column = player_board.ask_guess()
-        while not valid_guess(row, column):
+        while not game.valid_guess(row, column):
             row, column = player_board.ask_guess()
         player_hit = ai_board.mark_guess(row, column)
 
@@ -229,4 +229,5 @@ def new_game():
     play_game()
 
 
+game = GameBoard("", 0, 0, "")
 new_game()
