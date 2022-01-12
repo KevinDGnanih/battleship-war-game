@@ -74,7 +74,7 @@ class GameBoard:
 
         if valid_guess(row, column):
             if (row, column) in self.ships:
-                self.board[row][column] = "*"    
+                self.board[row][column] = "*"
                 return "That was a HIT!!!"
             else:
                 return "Oh no, you miss"
@@ -86,7 +86,9 @@ class GameBoard:
         """
         Returns True if the coordinates have already been guessed before
         """
+
         if (row, column) in self.guesses:
+            print("Ouppss... You cannot enter the same coordinates more than once.")
             return True
 
         return False
@@ -195,10 +197,12 @@ def play_game():
         print("+", "-" * 35, "+")
         print(f"You guessed: {ai_board.last_shoot()}")
         print(player_hit)  # Display if it's a hit or miss
+
         if player_hit == "That was a HIT!!!":
             scores['player'] += 1
         if ai_hit == "That was a HIT!!!":
             scores['ai'] += 1
+
         print(f"AI guessed: {player_board.last_shoot()}")
         print(ai_hit)  # Display if it's a win or miss
 
