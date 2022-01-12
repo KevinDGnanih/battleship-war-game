@@ -156,12 +156,6 @@ def valid_guess(row, column):
     return True
 
 
-def game_over():
-    """
-    Checks if either player has sunk all the other player's ships
-    """
-
-
 scores = {"player": 0, "ai": 0}
 
 def play_game():
