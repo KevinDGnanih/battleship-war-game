@@ -36,6 +36,8 @@ class GameBoard:
         for row in self.board:
             print(" ".join(row))
 
+        
+
     def placing_ships(self):
         """
         Placing ships on the boards
@@ -60,8 +62,9 @@ class GameBoard:
                 row = int(row)
                 column = input("Guess a column:\n")
                 column = int(column)
-                if self.valid_guess(row, column):
-                    return (row, column)
+                if not self.already_guessed(row, column):
+                    if self.valid_guess(row, column):
+                        return (row, column)
             except ValueError:
                 print("Row and column must be numbers")
 
@@ -86,10 +89,9 @@ class GameBoard:
         """
         Returns True if the coordinates have already been guessed before
         """
-
         if (row, column) in self.guesses:
             return True
-
+        self.ask_guess()
         return False
 
     def last_shoot(self):
@@ -112,8 +114,6 @@ class GameBoard:
                 raise ValueError(
                     print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
                 )
-            if self.who.already_guessed(row, column):
-                print("Ouppss... You cannot enter the same coordinates more than once.")
         except ValueError as error:
             print(f"Invalide coordinates: {error}, please try again.\n")
             return False
