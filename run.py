@@ -5,80 +5,49 @@ BATTLESHIP WAR GAME
 from random import randint
 
 
-def random_coordinates(size):
+def random_coordinate(grid_size):
     """
-    Returns a random coordinate
+    Helper function to return a random coordinate
     """
-    row = randint(0, size - 1)
-    column = randint(0, size - 1)
+    row = randint(0, grid_size - 1)
+    column = randint(0, grid_size - 1)
     return (row, column)
 
 
 class GameBoard:
     """
-    Figuring out everything for this class
+    Main board class. Sets board size, the number of ships,
+    the player's name and if it's a computer playing or a player.
+    Has methods for adding ships and guesses and printing the board
     """
-    def __init__(self, who, size, num_ships, name, player=False, ai_board=False):
-        self.who = who
+
+    def __init__(self, size, num_ships, name, player=False):
         self.size = size
         self.num_ships = num_ships
         self.name = name
         self.player = player
-        self.ai_board = ai_board
         self.board = [["~" for row in range(size)] for column in range(size)]
         self.ships = []
         self.guesses = []
         self.placing_ships()
 
-    def print_board(self):
+    def print_style(self):
         """
-        Print the board for AI and player
+        Prints the board for AI and player with the name
         """
+        print(f"{self.name}'s Board:")
         for row in self.board:
             print(" ".join(row))
 
-    def placing_ships(self):
+    def guess(self, row, column):
         """
-        Placing ships on the boards
-        """
-        for _ in range(self.num_ships):
-            row, column = random_coordinates(self.size)
-            while (row, column) in self.ships:
-                row, column = random_coordinates(self.size)
-            self.ships.append((row, column))
-            if self.player:
-                self.board[row][column] = "@"
-
-    def ask_guess(self):
-        """
-        Asks the player to guess a row and a column then
-        validate if the inputs are integers before to return them
-        """
-        while True:
-            try:
-                print("+", "-" * 35, "+")
-                row = input("Guess a row:\n")
-                row = int(row)
-                column = input("Guess a column:\n")
-                column = int(column)
-                if self.valid_guess(row, column):
-                    return (row, column)
-            except ValueError:
-                print("Row and column must be numbers")
-
-    def mark_guess(self, row, column):
-        """
-        Mark guesses on the board
+        Mark a guess on the board
         """
         self.guesses.append((row, column))
         self.board[row][column] = "X"
 
-        if self.valid_guess(row, column):
-            if (row, column) in self.ships:
-                self.board[row][column] = "*"
-                return "That was a HIT!!!"
-            else:
-                return "Oh no, you miss"
+        if (row, column) in self.ships:
+            self.board[row][column] = "*"
             return True
         else:
             return False
@@ -89,21 +58,132 @@ class GameBoard:
         """
         if (row, column) in self.guesses:
             return True
-
         return False
 
     def last_shoot(self):
         """
-        Gets the last shoot
+        Returns the last shoot
         """
         return self.guesses[-1]
 
+    def placing_ships(self):
+        """
+        Placing  ships on the board
+        """
+        for _ in range(self.num_ships):
+            row, column = random_coordinate(self.size)
+            while (row, column) in self.ships:
+                row, column = random_coordinate(self.size)
+            self.ships.append((row, column))
+            if self.player:
+                self.board[row][column] = "@"
+    
     def valid_guess(self, row, column):
         """
         Returns True if the coordinates are within the board grid
         and if they haven't been guesses before
         """
 
+        try:
+            if self.already_guessed(row, column):
+                print("ouppss")
+                return False
+        except ValueError as error:
+            print(f"Invalide coordinates: {error}, please try again.\n")
+            return False
+
+        return True    
+
+
+class Game:
+    """
+    Class to initialize the game, set up the player boards and
+    other parameters and handle the playing of it
+    """
+
+    def __init__(self, size, num_ships):
+        self.size = size
+        self.num_ships = num_ships
+        self.scores = {"ai": 0, "player": 0}
+
+    def new_game(self):
+        """
+        Show welcome screen, initialize the boards and start the game
+        """
+        print("+", "-" * 35, "+")
+        print("   Welcome to BATTLESHIP WAR GAME !!")
+        print("   Board size: 6. Number of ships: 5")
+        print("   Top left corner is row: 0, col: 0")
+        print("+", "-" * 35, "+")
+        self.play_game()
+
+    def play_game(self):
+        """
+        Main game loop that takes care of guesses and exits the game if it's
+        completed or if the player no longer want to play.
+        """
+        player_name = input("Please enter your name:\n")
+        print("+", "-" * 35, "+")
+        player_board = GameBoard(self.size, self.num_ships, player_name, player=True)
+        self.player_board = player_board
+        ai_board = GameBoard(self.size, self.num_ships, "AI", player=False)
+        self.computer_board = ai_board
+
+        while True:
+            self.print_boards()
+            if self.game_over():
+                print("Game over!")
+                break
+
+            # player guess
+            row, column = self.ask_guess()
+            while not self.valid_guess(row, column):
+                row, column = self.ask_guess()
+            player_hit = self.computer_board.guess(row, column)
+
+            # computer guess
+            row, column = random_coordinate(self.size)
+            while self.player_board.already_guessed(row, column):
+                row, column = random_coordinate(self.size)
+            ai_hit = self.player_board.guess(row, column)
+
+            # end of round
+            self.round_info(player_hit, ai_hit)
+            choice = input("Type \"quit\" to quit or anything else " +
+                           "to continue.\n")
+            if choice == "quit":
+                break
+
+    def ask_guess(self):
+        """
+        Asks the user for row and column and validate that they are numbers
+        before returning them
+        """
+        while True:
+            try:
+                print("-" * 45)
+                row = input("Guess a row:\n")
+                row = int(row)
+                column = input("Guess a column:\n")
+                column = int(column)
+                break
+            except ValueError:
+                print("Row and column must be numbers")
+
+        return (row, column)
+
+    def print_boards(self):
+        """
+        Print current board status on screen
+        """
+        self.player_board.print_style()
+        self.computer_board.print_style()
+
+    def valid_guess(self, row, column):
+        """
+        Returns True if the coordinates are within the board grid and if they
+        haven't been guessed before
+        """
         try:
             if not 0 <= row < 6:
                 raise ValueError(
@@ -113,9 +193,6 @@ class GameBoard:
                 raise ValueError(
                     print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
                 )
-            if self.ai_board.already_guessed(row, column):
-                print("ouppss")
-                return False
         except ValueError as error:
             print(f"Invalide coordinates: {error}, please try again.\n")
             return False
@@ -123,113 +200,39 @@ class GameBoard:
         return True
 
 
-def get_player_name():
-    """
-    Get name input from player
-    """
-    while True:
-
-        get_name = input("Please enter a name:\n")
-        name_is = get_name
-
-        if validate_name(name_is):
-            break
-
-    return name_is
-
-
-def validate_name(values):
-    """
-    Raises ValueError if the string has other characters than letters
-    and has no more than 10 letters
-    """
-
-    try:
-        if len(values) > 10:
-            raise ValueError(
-                f"10 characters maximum required, you entered {len(values)}"
-                )
-        if len(values) == 0:
-            raise ValueError(
-                f"You haven't enter any character {values}"
-            )
-    except ValueError as error:
-        print(f"Invalid name: {error}, please try again.\n")
+    def game_over(self):
+        """
+        Checks if either player has sunk the other player's battle ships
+        """
+        if self.scores["player"] >= self.num_ships or \
+           self.scores["ai"] >= self.num_ships:
+            return True
         return False
 
-    return True
-
-
-scores = {"player": 0, "ai": 0}
-
-
-def play_game():
-    """
-    Starting the game functions
-    """
-    scores["player"] = 0
-    scores["ai"] = 0
-    player_name = get_player_name()
-    player_board = GameBoard(who="player", size=6, num_ships=5, name=player_name, player=True, ai_board=False)
-    ai_board = GameBoard(who="ai", size=6, num_ships=5, name="Computer", player=False, ai_board=True)
-
-    game_on = True
-
-    while game_on:
+    def round_info(self, player_hit, computer_hit):
+        """
+        Output the scores after each round
+        """
         print("+", "-" * 35, "+")
-        print(f"{player_name}'s Board:")
-        player_board.print_board()
-        print("AI Board:")
-        ai_board.print_board()
-
-#       Player guesses
-        row, column = player_board.ask_guess()
-        while not game.valid_guess(row, column):
-            row, column = player_board.ask_guess()
-        player_hit = ai_board.mark_guess(row, column)
-
-
-#       AI guesses
-        row, column = random_coordinates(size=6)
-        while player_board.already_guessed(row, column):
-            row, column = random_coordinates(size=6)
-        ai_hit = player_board.mark_guess(row, column)
-
-#       Round's info
+        print(f"{self.player_board.name} guessed " +
+              f"{self.ai_board.last_guess()}")
+        if player_hit:
+            self.scores["player"] += 1
+            print("That was a HIT!!!")
+        else:
+            print("Oh no you a miss!")
+        print(f"AI guessed {self.player_board.last_guess()}")
+        if computer_hit:
+            self.scores["ai"] += 1
+            print("That was a HIT!!!")
+        else:
+            print("That was a miss!")
         print("+", "-" * 35, "+")
-        print(f"You guessed: {ai_board.last_shoot()}")
-        print(player_hit)  # Display if it's a hit or miss
-
-        if player_hit == "That was a HIT!!!":
-            scores['player'] += 1
-        if ai_hit == "That was a HIT!!!":
-            scores['ai'] += 1
-
-        print(f"AI guessed: {player_board.last_shoot()}")
-        print(ai_hit)  # Display if it's a win or miss
-
-#       Scores section
+        print("\nAfter this round, the scores are:")
+        print(f"{self.player_board.name}:" +
+              f"{self.scores['player']} . Computer:{self.scores['computer']}")
         print("+", "-" * 35, "+")
-        print(f"After this round, the scroes are:\n {player_name}: {scores['player']}. AI: {scores['ai']}")
-        print("+", "-" * 35, "+")
-        choice = input("Type \"quit\" to quit or anything else " + "to continue.\n")
-        if choice == "quit":
-            break
 
 
-def new_game():
-    """
-    Run all games functions and starts a new game.
-    Sets the board size and number of ships, resets
-    the scores and initialises the boards.
-    """
-    print("+", "-" * 35, "+")
-    print("   Welcome to BATTLESHIP WAR GAME !!")
-    print("   Board size: 6. Number of ships: 5")
-    print("   Top left corner is row: 0, col: 0")
-    print("+", "-" * 35, "+")
-    play_game()
-
-
-game = GameBoard("", 0, 0, "")
-new_game()
+game = Game(size=6, num_ships=5)
+game.new_game()
