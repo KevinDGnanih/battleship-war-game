@@ -108,7 +108,8 @@ class Game:
         """
         player_name = input("Please enter your name:\n")
         print("+", "-" * 35, "+")
-        player_board = GameBoard(self.size, self.num_ships, player_name, player=True)
+        player_board = GameBoard(self.size, self.num_ships, player_name,
+                                 player=True)
         self.player_board = player_board
         ai_board = GameBoard(self.size, self.num_ships, "AI", player=False)
         self.ai_board = ai_board
@@ -116,9 +117,10 @@ class Game:
         while True:
             self.print_boards()
             if self.game_over():
-                print("Game over!")
-                restart_choice = input("Type \"yes\" if you would like to start" +
-                                       "again or anything else to leave the game")
+                self.overall_winner()
+                restart_choice = input("Type \"yes\" if you would like to" +
+                                       " start again or anything else to" +
+                                       " leave the game")
                 if restart_choice == "yes":
                     break
                 else:
@@ -142,6 +144,19 @@ class Game:
                            "to continue.\n")
             if choice == "quit":
                 break
+
+    def overall_winner(self):
+        """
+        Naming the overall winner
+        """
+        diff = self.scores["player"] - self.scores["ai"]
+
+        if diff < 0:
+            print("AI won")
+        elif diff > 0:
+            print("You WON")
+        else:
+            print("It's a tie...")
 
     def ask_guess(self):
         """
@@ -178,7 +193,7 @@ class Game:
                 raise ValueError(
                     print("Row and column must be between 0 and 5," +
                           f"you entered {row}, {column}")
-                    )
+                )
             if not 0 <= column < 6:
                 raise ValueError(
                     print("Row and column must be between 0 and 5," +
@@ -197,8 +212,8 @@ class Game:
         """
         Checks if either player has sunk the other player's battle ships
         """
-        if self.scores["player"] >= self.num_ships or \
-           self.scores["ai"] >= self.num_ships:
+        if self.scores["player"] == self.num_ships or \
+           self.scores["ai"] == self.num_ships:
             return True
         return False
 
