@@ -117,7 +117,12 @@ class Game:
             self.print_boards()
             if self.game_over():
                 print("Game over!")
-                break
+                restart_choice = input("Type \"yes\" if you would like to start" + 
+                                        "again or anything else to leave the game")
+                if restart_choice == "yes":
+                    break
+                else:
+                    self.new_game()
 
             # player guess
             row, column = self.ask_guess()
@@ -219,7 +224,7 @@ class Game:
         print("+", "-" * 35, "+")
         print("\nAfter this round, the scores are:")
         print(f"{self.player_board.name}:" +
-              f"{self.scores['player']} . Computer:{self.scores['ai']}")
+              f"{self.scores['player']} . AI:{self.scores['ai']}")
         print("+", "-" * 35, "+")
 
 
