@@ -188,6 +188,7 @@ class Game:
         Returns True if the coordinates are within the board grid and if they
         haven't been guessed before
         """
+
         try:
             if not 0 <= row < 6:
                 raise ValueError(
