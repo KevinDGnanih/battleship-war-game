@@ -77,22 +77,18 @@ class GameBoard:
             self.ships.append((row, column))
             if self.player:
                 self.board[row][column] = "@"
-    
+
     def valid_guess(self, row, column):
         """
         Returns True if the coordinates are within the board grid
         and if they haven't been guesses before
         """
 
-        try:
-            if self.already_guessed(row, column):
-                print("ouppss")
-                return False
-        except ValueError as error:
-            print(f"Invalide coordinates: {error}, please try again.\n")
+        if self.ai_board.already_guessed(row, column):
+            print("Ouppss, you cannot enter twice the same coordimates")
             return False
 
-        return True    
+        return True
 
 
 class Game:
@@ -127,7 +123,7 @@ class Game:
         player_board = GameBoard(self.size, self.num_ships, player_name, player=True)
         self.player_board = player_board
         ai_board = GameBoard(self.size, self.num_ships, "AI", player=False)
-        self.computer_board = ai_board
+        self.ai_board = ai_board
 
         while True:
             self.print_boards()
@@ -139,7 +135,7 @@ class Game:
             row, column = self.ask_guess()
             while not self.valid_guess(row, column):
                 row, column = self.ask_guess()
-            player_hit = self.computer_board.guess(row, column)
+            player_hit = self.ai_board.guess(row, column)
 
             # computer guess
             row, column = random_coordinate(self.size)
@@ -177,7 +173,7 @@ class Game:
         Print current board status on screen
         """
         self.player_board.print_style()
-        self.computer_board.print_style()
+        self.ai_board.print_style()
 
     def valid_guess(self, row, column):
         """
@@ -199,7 +195,6 @@ class Game:
 
         return True
 
-
     def game_over(self):
         """
         Checks if either player has sunk the other player's battle ships
@@ -214,23 +209,27 @@ class Game:
         Output the scores after each round
         """
         print("+", "-" * 35, "+")
-        print(f"{self.player_board.name} guessed " +
-              f"{self.ai_board.last_guess()}")
+        print(f"You guessed: {self.ai_board.last_shoot()}")
+        #print(player_hit)
+
         if player_hit:
             self.scores["player"] += 1
             print("That was a HIT!!!")
         else:
             print("Oh no you a miss!")
-        print(f"AI guessed {self.player_board.last_guess()}")
+
+        print(f"AI guessed: {self.player_board.last_shoot()}")
+
         if computer_hit:
             self.scores["ai"] += 1
             print("That was a HIT!!!")
         else:
             print("That was a miss!")
+
         print("+", "-" * 35, "+")
         print("\nAfter this round, the scores are:")
         print(f"{self.player_board.name}:" +
-              f"{self.scores['player']} . Computer:{self.scores['computer']}")
+              f"{self.scores['player']} . Computer:{self.scores['ai']}")
         print("+", "-" * 35, "+")
 
 
