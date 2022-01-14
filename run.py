@@ -78,18 +78,6 @@ class GameBoard:
             if self.player:
                 self.board[row][column] = "@"
 
-    def valid_guess(self, row, column):
-        """
-        Returns True if the coordinates are within the board grid
-        and if they haven't been guesses before
-        """
-
-        if self.ai_board.already_guessed(row, column):
-            print("Ouppss, you cannot enter twice the same coordimates")
-            return False
-
-        return True
-
 
 class Game:
     """
@@ -190,7 +178,7 @@ class Game:
                     print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
                 )
             if self.ai_board.already_guessed(row, column):
-                print("Ouppss, you cannot enter twice the same coordimates")
+                print("Ouppss, you cannot enter twice the same coordinates")
                 return False
         except ValueError as error:
             print(f"Invalide coordinates: {error}, please try again.\n")
