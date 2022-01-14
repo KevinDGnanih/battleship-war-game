@@ -7,7 +7,7 @@ from random import randint
 
 def random_coordinate(grid_size):
     """
-    Helper function to return a random coordinate
+    Returns a random coordinate
     """
     row = randint(0, grid_size - 1)
     column = randint(0, grid_size - 1)
@@ -16,8 +16,8 @@ def random_coordinate(grid_size):
 
 class GameBoard:
     """
-    Main board class. Sets board size, the number of ships,
-    the player's name and if it's a computer playing or a player.
+    Mainboard class. Sets board size, the number of ships,
+    the player's name, and if it's a computer playing or a player.
     Has methods for adding ships and guesses and printing the board
     """
 
@@ -115,8 +115,8 @@ class Game:
 
     def play_game(self):
         """
-        Main game loop that takes care of guesses and exits the game if it's
-        completed or if the player no longer want to play.
+        The main game loop takes care of guesses and exits the game if it's
+        completed or if the player no longer wants to play.
         """
         player_name = input("Please enter your name:\n")
         print("+", "-" * 35, "+")
@@ -189,6 +189,9 @@ class Game:
                 raise ValueError(
                     print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
                 )
+            if self.ai_board.already_guessed(row, column):
+                print("Ouppss, you cannot enter twice the same coordimates")
+                return False
         except ValueError as error:
             print(f"Invalide coordinates: {error}, please try again.\n")
             return False
@@ -210,7 +213,6 @@ class Game:
         """
         print("+", "-" * 35, "+")
         print(f"You guessed: {self.ai_board.last_shoot()}")
-        #print(player_hit)
 
         if player_hit:
             self.scores["player"] += 1
