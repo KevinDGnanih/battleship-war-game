@@ -117,8 +117,8 @@ class Game:
             self.print_boards()
             if self.game_over():
                 print("Game over!")
-                restart_choice = input("Type \"yes\" if you would like to start" + 
-                                        "again or anything else to leave the game")
+                restart_choice = input("Type \"yes\" if you would like to start" +
+                                       "again or anything else to leave the game")
                 if restart_choice == "yes":
                     break
                 else:
@@ -176,11 +176,13 @@ class Game:
         try:
             if not 0 <= row < 6:
                 raise ValueError(
-                    print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
-                )
+                    print("Row and column must be between 0 and 5," +
+                          f"you entered {row}, {column}")
+                    )
             if not 0 <= column < 6:
                 raise ValueError(
-                    print(f"Row and column must be between 0 and 5, you entered {row}, {column}")
+                    print("Row and column must be between 0 and 5," +
+                          f"you entered {row}, {column}")
                 )
             if self.ai_board.already_guessed(row, column):
                 print("Ouppss, you cannot enter twice the same coordinates")
