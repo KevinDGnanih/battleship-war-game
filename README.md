@@ -11,6 +11,10 @@ It all depends on the luck of your finding shots to initially hit your targets.
 
 Image from [Am I Responsive](http://ami.responsivedesign.is/).
 
+Give it a try
+
+The live link can be found here - https://battleship-war-kdg.herokuapp.com/
+
 ## UX
 
 I wanted to create a simple Battleship game for anyone, for them to have fun in a very easy way to input data.
