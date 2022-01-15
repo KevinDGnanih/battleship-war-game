@@ -7,7 +7,7 @@ Battleship is a terminal game programed with Python, which runs in the Code Inst
 It's a funny and widely-known board game in which the goal is to destroy the opposing player's fleet.
 It all depends on the luck of your finding shots to initially hit your targets.
 
-![alt text](assets/image/am=i.jpg)
+![alt text](image/am=i.jpg)
 
 Image from [Am I Responsive](http://ami.responsivedesign.is/).
 
