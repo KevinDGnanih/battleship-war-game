@@ -7,7 +7,7 @@ Battleship is a terminal game programed with Python, which runs in the Code Inst
 It's a funny and widely-known board game in which the goal is to destroy the opposing player's fleet.
 It all depends on the luck of your finding shots to initially hit your targets.
 
-[Here is the live version of the game](assets/image/am-i.jpg)
+[Here is the live version of the game](/assets/image/am-i.jpg)
 
 Image from [Am I Responsive](http://ami.responsivedesign.is/).
 
@@ -35,7 +35,7 @@ it sinks yours!
     - The player can see where his ships are located by a (@) mark
     - The player can not see where the AI ships are located on the board
 
-![Board](assets/image/start-battle.jpg)
+![alt text](assets/image/start-battle.jpg)
 
 
 - __In game Guess__
@@ -44,7 +44,7 @@ it sinks yours!
     - Viewing in-game score
     - View chosen guess
 
-![Board](assets/image/in-game.jpg)
+![alt text](assets/image/in-game.jpg)
 
 
 - __In game Validation__
@@ -54,7 +54,7 @@ it sinks yours!
     - Coordinates outside the grid size are not allowed
     - The Data is maintained in class instances
 
-![Board](assets/image/in-valid.jpg)
+![alt text](assets/image/in-valid.jpg)
 
 
 
@@ -113,7 +113,7 @@ No known bugs
 ## Languages, Frameworks, IDE, Librarires and Programs
 
 [Python](https://en.wikipedia.org/wiki/History_of_Python)
-    - The programming language Python was used. 
+- The programming language Python was used. 
 
 [GitHub:](https://github.com/)
 - GitHub was used to store the projects code after being pushed from Git.
