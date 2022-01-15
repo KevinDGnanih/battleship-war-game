@@ -35,7 +35,7 @@ it sinks yours!
     - The player can see where his ships are located by a (@) mark
     - The player can not see where the AI ships are located on the board
 
-![alt text](assets/image/start-battle.jpg)
+![alt text](image/start-battle.jpg)
 
 
 - __In game Guess__
