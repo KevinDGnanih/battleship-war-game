@@ -4,10 +4,10 @@
 
 Battleship is a terminal game programed with Python, which runs in the Code Institute mock terminal on Heroku.
 
-It's a funny and a widely-known board game in which the goal is to destroy the opposing player's fleet.
+It's a funny and widely-known board game in which the goal is to destroy the opposing player's fleet.
 It all depends on the luck of your finding shots to initially hit your targets.
 
-[Here is the live version of the live game](assets/image/am-i.jpg)
+[Here is the live version of the game](assets/image/am-i.jpg)
 
 Image from [Am I Responsive](http://ami.responsivedesign.is/).
 
@@ -17,10 +17,10 @@ I wanted to create a simple Battleship game for anyone, for them to have fun in 
 
 ## How to play
 
-In this version of Battleship the user starts the game by first typing the name of the player.
+In this version of Battleshi,p the user starts the game by first typing the name of the player.
 Then the game will lunch the game boards and randomly populate 5 ships. 
-The player will then be ask to enter coordinates to find out the AI ships and sink them.
-The grid always start on: 0 row and 0 column. Guesses are marked on the board with an X
+The player will then be asked to enter coordinates to find out the AI ships and sink them.
+The grid always starts on 0 rows and 0 columns. Guesses are marked on the board with an X
 and hits are marked by *. To win the whole game, you will have to sink all the AI's ships before
 it sinks yours!
 
@@ -30,7 +30,7 @@ it sinks yours!
 
 - __Start the Battle__
 
-    - One board each are generated on the specified grid size
+    - One board each is generated on the specified grid size
     - Ships are randomly placed on the player and the AI board
     - The player can see where his ships are located by a (@) mark
     - The player can not see where the AI ships are located on the board
@@ -41,7 +41,7 @@ it sinks yours!
 - __In game Guess__
     
     - Player input implemented
-    - Viewing in game score
+    - Viewing in-game score
     - View chosen guess
 
 ![Board](assets/image/in-game.jpg)
@@ -60,19 +60,19 @@ it sinks yours!
 
 ### Features Let to Implement
 I'd like to implement:
-- Allow user to position ships themselves
-- Make row with numbers and columns with letters
+- Allow players to position ships themselves
+- Make rows with numbers and columns with letters
 
 ## Data Model
 
-I chosen the option to use two classes for the game model. One GameBoard class and the othe Game class.
+I have chosen the option to use two classes for the game model. One GameBoard class and the other Game class.
 
 - __GameBoard Class__
 
     - self.size = To set the board size
     - self.name = To get the name of players
     - self.num_ships = To set number of ships in-game
-    - self.player = Bolian indicate if the board belongs to a player or AI
+    - self.player = Boolean indicate if the board belongs to a player or AI
     - self.board = To set up the board printing
     - self.guesses = List of passed guesses
     - self.placing_ships = Creates in-memory board with the players ship
@@ -91,14 +91,14 @@ I chosen the option to use two classes for the game model. One GameBoard class a
     - No errors were found when passing through the test
 
 - Manual invalid inputs
-    - Validate that Value Error is given to the player when wrong value is entered
+    - Validate that Value Error is given to the player when the wrong value is entered
     - Write string, text instead of numbers when numbers are expected
     - Out of bounds inputs example out of grid number
-    - Same guess cannot be performed more than once
+    - The same guess cannot be performed more than once
 
 - Local terminal and the Code institute Heroku terminal
-    - Test done on my local terminal in Gitpod
-    - Test done when project was deployed on Heroku with the Code Institute mockup terminal
+    - Test is done on my local terminal in Gitpod
+    - Test is done when the project was deployed on Heroku with the Code Institute mockup terminal
 
 
 ## Bugs
@@ -123,3 +123,32 @@ No known bugs
 
 [Heroku:](https://www.heroku.com/what)
 - Was used for deployment of the project live in the cloud.
+
+
+
+## Deplyement
+
+This project was published and deployed using the Code Institute mock terminal for Heroku
+
+- Setps for deployment:
+    - Fork or clone this repository
+    - Create a new Heroku application
+    - Set the buildpack to "Python" and "Node.js" in that order
+    - Link the Heroku app to the repository
+    - Choose either "Automatic deployment" or "Manual deploy"
+
+The live link can be found here - https://battleship-war-kdg.herokuapp.com/
+
+
+## Credits
+
+- Code Institute project 3 Scope Video
+- Stackoverflow
+
+## Acknoledgments
+
+- My mentor Guido Cecilio for his support and time
+- Code Institute idea from the Project Portofiolo 3
+
+
+Kevin.G
