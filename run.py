@@ -120,7 +120,7 @@ class Game:
                 self.overall_winner()
                 restart_choice = input("Type \"yes\" if you would like to" +
                                        " quit the game or anything else to" +
-                                       " start again")
+                                       " start again\n")
                 if restart_choice == "yes":
                     break
                 else:
